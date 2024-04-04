@@ -6,6 +6,7 @@
    *타워디펜스*
    
    ![image](https://github.com/rudex339/Sdgp-termproject/assets/58317478/fa447ffc-e4d3-4850-b76a-8d2b091fe850)
+   
    2차원 타일에 아군 타워를 설치 가능
    
    타워를 설치할때 랜덤으로 생성되는 자원을 클릭하여 획득한 자원을 소모
