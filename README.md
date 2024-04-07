@@ -37,6 +37,7 @@
   자신과 같은 칸에 있는 적에게 공격한다 체력은 30 공격력은 1
 
   적 4종류
+  
   ![B_Pawn](https://github.com/rudex339/Sdgp-termproject/assets/58317478/1c082c11-e97c-4736-8468-e033fbf3dbe6)
   근거리 공격, 체력 5 공격력 2
 
