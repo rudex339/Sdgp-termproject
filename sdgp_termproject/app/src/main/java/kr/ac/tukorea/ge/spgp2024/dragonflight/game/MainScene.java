@@ -3,7 +3,7 @@ package kr.ac.tukorea.ge.spgp2024.dragonflight.game;
 import android.view.MotionEvent;
 
 import kr.ac.tukorea.ge.spgp2024.dragonflight.R;
-import kr.ac.tukorea.ge.spgp2024.framework.objects.VertScrollBackground;
+import kr.ac.tukorea.ge.spgp2024.framework.objects.TileBackground;
 import kr.ac.tukorea.ge.spgp2024.framework.objects.Score;
 import kr.ac.tukorea.ge.spgp2024.framework.scene.Scene;
 import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
@@ -24,18 +24,20 @@ public class MainScene extends Scene {
         //Metrics.setGameSize(16, 16);
         initLayers(Layer.COUNT);
 
-        add(Layer.controller, new EnemyGenerator());
-        add(Layer.controller, new CollisionChecker(this));
+        //add(Layer.controller, new EnemyGenerator());
+        //add(Layer.controller, new CollisionChecker(this));
 
-        add(Layer.bg, new VertScrollBackground(R.mipmap.bg_city, 0.2f));
-        add(Layer.bg, new VertScrollBackground(R.mipmap.clouds, 0.4f));
+        //add(Layer.bg, new VertScrollBackground(R.mipmap.bg_city, 0.2f));
+        //add(Layer.bg, new VertScrollBackground(R.mipmap.clouds, 0.4f));
+
+        add(Layer.bg, new TileBackground(R.mipmap.medievalpack16x16, 0.4f));
 
         this.fighter = new Fighter();
-        add(Layer.player, fighter);
+        //add(Layer.player, fighter);
 
         this.score = new Score(R.mipmap.number_24x32, Metrics.width - 0.5f, 0.5f, 0.6f);
         score.setScore(0);
-        add(Layer.ui, score);
+        //add(Layer.ui, score);
     }
 
     public void addScore(int amount) {

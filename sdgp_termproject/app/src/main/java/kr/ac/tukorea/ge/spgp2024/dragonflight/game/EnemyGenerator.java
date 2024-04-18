@@ -16,7 +16,7 @@ public class EnemyGenerator implements IGameObject {
     private int wave;
     @Override
     public void update(float elapsedSeconds) {
-        enemyTime -= elapsedSeconds;
+        enemyTime -= elapsedSeconds;//특정시간때마다 generate를 호출하여 적을 생성
         if (enemyTime < 0) {
             generate();
             enemyTime = GEN_INTERVAL;
