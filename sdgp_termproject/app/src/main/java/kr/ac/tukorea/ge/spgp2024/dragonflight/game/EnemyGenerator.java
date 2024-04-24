@@ -19,7 +19,7 @@ public class EnemyGenerator implements IGameObject {
         enemyTime -= elapsedSeconds;//특정시간때마다 generate를 호출하여 적을 생성
         if (enemyTime < 0) {
             generate();
-            enemyTime = GEN_INTERVAL;
+            enemyTime =  random.nextFloat()*GEN_INTERVAL;
         }
     }
 
@@ -29,11 +29,11 @@ public class EnemyGenerator implements IGameObject {
 
         wave++;
         //Log.v(TAG, "Generating: wave " + wave);
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < random.nextInt(2); i++) {
             int level = (wave + 15) / 10 - random.nextInt(3);
             if (level < 0) level = 0;
             if (level > Enemy.MAX_LEVEL) level = Enemy.MAX_LEVEL;
-            scene.add(MainScene.Layer.enemy, Enemy.get(level, i));
+            scene.add(MainScene.Layer.enemy, Enemy.get(0, random.nextInt(4)));
         }
     }
 

@@ -5,7 +5,7 @@ import android.graphics.Rect;
 
 import kr.ac.tukorea.ge.spgp2024.framework.res.BitmapPool;
 
-public class AnimSprite extends Sprite {
+public class    AnimSprite extends Sprite {
     protected Rect srcRect = new Rect();
     private float fps;
     private int frameWidth, frameHeight;

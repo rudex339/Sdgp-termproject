@@ -1,6 +1,7 @@
 package kr.ac.tukorea.ge.spgp2024.dragonflight.game;
 
 import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.graphics.RectF;
 
 import kr.ac.tukorea.ge.spgp2024.dragonflight.R;
@@ -13,14 +14,10 @@ import kr.ac.tukorea.ge.spgp2024.framework.util.Gauge;
 import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
 
 public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
-    private static final float SPEED = 3.0f;
+    private static final float SPEED = 0.5f;
     private static final float RADIUS = 0.9f;
     private static final int[] resIds = {
-            R.mipmap.enemy_01, R.mipmap.enemy_02, R.mipmap.enemy_03, R.mipmap.enemy_04, R.mipmap.enemy_05,
-            R.mipmap.enemy_06, R.mipmap.enemy_07, R.mipmap.enemy_08, R.mipmap.enemy_09, R.mipmap.enemy_10,
-            R.mipmap.enemy_11, R.mipmap.enemy_12, R.mipmap.enemy_13, R.mipmap.enemy_14, R.mipmap.enemy_15,
-            R.mipmap.enemy_16, R.mipmap.enemy_17, R.mipmap.enemy_18, R.mipmap.enemy_19, R.mipmap.enemy_20,    };
-
+            R.mipmap.medievalpack16x16};
     public static final int MAX_LEVEL = resIds.length - 1;
     public static final float ANIM_FPS = 10.0f;
     protected RectF collisionRect = new RectF();
@@ -31,14 +28,18 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
     private Enemy(int level, int index) {
         super(0, 0);
         init(level, index);
-        dy = SPEED;
+        dx = -SPEED;
     }
 
     private void init(int level, int index) {
         this.level = level;
         this.life = this.maxLife = (level + 1) * 10;
-        setAnimationResource(resIds[level], ANIM_FPS);
-        setPosition(Metrics.width / 10 * (2 * index + 1), -RADIUS, RADIUS);
+        setAnimationResource(resIds[0], ANIM_FPS);
+        if(srcRect == null)
+            srcRect=new Rect(  221, 121,   221 + 16, 121+19);
+        else srcRect.set(221, 121,   221 + 16, 121+19);
+
+        setPosition(16.f/3 + 1.f * 7, 3.f+1.f*(index), 1.f);
     }
 
     public static Enemy get(int level, int index) {
@@ -52,19 +53,21 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
     @Override
     public void update(float elapsedSeconds) {
         super.update(elapsedSeconds);
-        if (dstRect.top > Metrics.height) {
+        if (dstRect.right < 16.f/3) {
             Scene.top().remove(MainScene.Layer.enemy, this);
         }
         collisionRect.set(dstRect);
         collisionRect.inset(0.11f, 0.11f);
+
+        dx = -SPEED;
     }
 
     @Override
     public void draw(Canvas canvas) {
-        super.draw(canvas);
+        canvas.drawBitmap(bitmap, srcRect, dstRect, null);
         canvas.save();
 
-        float width = dstRect.width() * 0.7f;
+        float width = dstRect.width();
         canvas.translate(x - width / 2, dstRect.bottom);
         canvas.scale(width, width);
         gauge.draw(canvas, (float)life / maxLife);
@@ -76,6 +79,9 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
         return collisionRect;
     }
 
+    public void CollisionAction() {
+        dx = 0;
+    }
     @Override
     public void onRecycle() {
 

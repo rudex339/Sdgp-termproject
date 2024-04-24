@@ -47,9 +47,9 @@ public class TowerGenerator implements IGameObject {
         if (scene == null) return;
 
         //Log.v(TAG, "Generating: wave " + wave);
-        for (int i = 0; i < 5; i++) {
-            scene.add(MainScene.Layer.enemy, Enemy.get(0, i));
-        }
+        //for (int i = 0; i < 5; i++) {
+            //scene.add(MainScene.Layer.enemy, Enemy.get(0, i));
+        //}
     }
 
     @Override
