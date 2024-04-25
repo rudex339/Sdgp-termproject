@@ -12,7 +12,7 @@ public class TileBackground extends Sprite {
  private final Bitmap MapBitmap;
     private final Bitmap TileBitmap;
     private final Bitmap CatleBitmap;
-    public TileBackground(int bitmapResId, float speed) {
+    public TileBackground(int bitmapResId) {
         super(bitmapResId);
         this.width = bitmap.getWidth() * Metrics.height / bitmap.getHeight();// Calculate width based on bitmap's aspect ratio
         //setPosition(Metrics.width / 2, Metrics.height / 2, width, Metrics.height);
