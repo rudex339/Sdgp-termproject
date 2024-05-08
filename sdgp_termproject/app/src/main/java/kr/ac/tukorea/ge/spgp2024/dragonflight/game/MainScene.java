@@ -24,7 +24,7 @@ public class MainScene extends Scene {
         //Metrics.setGameSize(16, 16);
         initLayers(Layer.COUNT);
 
-        //add(Layer.controller, new EnemyGenerator());
+        add(Layer.controller, new EnemyGenerator());
 
         towercontroller = new TowerGenerator();
         add(Layer.controller, towercontroller);
