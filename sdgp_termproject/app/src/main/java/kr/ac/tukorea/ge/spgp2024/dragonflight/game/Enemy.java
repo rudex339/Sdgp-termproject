@@ -15,7 +15,7 @@ import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
 
 public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
     private static final float SPEED = 0.5f;
-    private static final float RADIUS = 0.9f;
+    private static final float RADIUS = 0.3f;
     private static final int[] resIds = {
             R.mipmap.medievalpack16x16};
     public static final int MAX_LEVEL = resIds.length - 1;
@@ -39,7 +39,8 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
             srcRect=new Rect(  221, 121,   221 + 16, 121+19);
         else srcRect.set(221, 121,   221 + 16, 121+19);
 
-        setPosition(16.f/3 + 1.f * 7, 3.f+1.f*(index), 1.f);
+        setPosition(16.f/3 + 1.f * 7, 3.f+1.f*(index), 0.5f);
+        //setPosition(16.f/3 + 1.f * 7, 3.f+1.f*(index), 1.f);
     }
 
     public static Enemy get(int level, int index) {

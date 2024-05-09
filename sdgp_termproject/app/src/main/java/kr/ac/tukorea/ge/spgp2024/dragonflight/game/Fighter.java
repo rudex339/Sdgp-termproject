@@ -52,7 +52,7 @@ public class Fighter extends Sprite {
     private float fireCoolTime = FIRE_INTERVAL;
 
     public Fighter() {
-        super(R.mipmap.fighters);
+        super(R.mipmap.trees);
         setPosition(Metrics.width / 2, Metrics.height - FIGHTER_Y_OFFSET, PLANE_WIDTH, PLANE_HEIGHT);
         setTargetX(x);
 

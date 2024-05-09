@@ -8,22 +8,28 @@
     android:background="@drawable/title_bg"
     tools:context=".app.MainActivity">
 
-    <LinearLayout
-        android:id="@+id/treeParent"
-        android:orientation="vertical"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        >
+        android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:src="@mipmap/titlebackground"
+            android:contentDescription="Background Image"/>
         <TextView
             android:id="@+id/titleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Chess Tower Deffence"
-            android:textSize="50sp"
-             />
-    </LinearLayout>
+            android:textColor="@color/white"
+            android:textSize="60sp" />
+
+    </FrameLayout>
 
 </RelativeLayout>

@@ -15,7 +15,7 @@ import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
 
 public class Tower extends AnimSprite implements IBoxCollidable, IRecyclable {
     private static final float SPEED = 3.0f;
-    private static final float RADIUS = 0.7f;
+    private static final float RADIUS = 0.5f;
     private static final int[] resIds = {
             R.mipmap.medievalpack16x16};
 
@@ -44,10 +44,10 @@ public class Tower extends AnimSprite implements IBoxCollidable, IRecyclable {
     }
 
     public static Tower get(float[] pos, int index) {
-        Tower enemy = (Tower) RecycleBin.get(Tower.class);
-        if (enemy != null) {
-            enemy.init(pos, index);
-            return enemy;
+        Tower tower = (Tower) RecycleBin.get(Tower.class);
+        if (tower != null) {
+            tower.init(pos, index);
+            return tower;
         }
         return new Tower(pos, index);
     }
