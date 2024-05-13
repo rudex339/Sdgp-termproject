@@ -21,10 +21,10 @@ public class CollisionChecker implements IGameObject {
         ArrayList<IGameObject> enemies = scene.objectsAt(MainScene.Layer.enemy);
         for (int e = enemies.size() - 1; e >= 0; e--) {
             Enemy enemy = (Enemy)enemies.get(e);
-            ArrayList<IGameObject> bullets = scene.objectsAt(MainScene.Layer.tower);
-            for (int b = bullets.size() - 1; b >= 0; b--) {
-                Tower bullet = (Tower)bullets.get(b);
-                if (CollisionHelper.collides(enemy, bullet)) {
+            ArrayList<IGameObject> towers = scene.objectsAt(MainScene.Layer.tower);
+            for (int b = towers.size() - 1; b >= 0; b--) {
+                Tower tower = (Tower)towers.get(b);
+                if (CollisionHelper.collides(enemy, tower)) {
                     //Log.d(TAG, "Collision !!");
                     //scene.remove(MainScene.Layer.bullet, bullet);
                    // boolean dead = enemy.decreaseLife(bullet.getPower());
@@ -33,8 +33,27 @@ public class CollisionChecker implements IGameObject {
                         //scene.addScore(enemy.getScore());
                     //}
                     enemy.CollisionAction();
+                    tower.setEnemyStop(true);
+                    boolean Edead=false;
+                    boolean Tdead = false;
+                    if(tower.attack(enemy)){
+                        Edead= enemy.decreaseLife(tower.damage);
+                    }
+                    if(enemy.attack(tower)){
+                        Tdead= tower.decreaseLife(enemy.damage);
+                    }
+                    if (Edead) {
+                        scene.remove(MainScene.Layer.enemy, enemy);
+                        //scene.addScore(enemy.getScore());
+                    }
+                    if (Tdead) {
+                        scene.remove(MainScene.Layer.tower,tower);
+                        //scene.addScore(enemy.getScore());
+                    }
+                    //attaack
                     break;
                 }
+
             }
         }
     }

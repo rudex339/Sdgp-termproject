@@ -41,7 +41,7 @@ public class MainScene extends Scene {
 
         this.score = new Score(R.mipmap.number_24x32, Metrics.width - 0.5f, 0.5f, 0.6f);
         score.setScore(0);
-        //add(Layer.ui, score);
+        add(Layer.ui, score);
     }
 
     public void addScore(int amount) {
