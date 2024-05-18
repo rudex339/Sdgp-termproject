@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import kr.ac.tukorea.ge.spgp2024.dragonflight.BuildConfig;
 import kr.ac.tukorea.ge.spgp2024.dragonflight.game.Enemy;
+import kr.ac.tukorea.ge.spgp2024.dragonflight.game.ITouchable;
 import kr.ac.tukorea.ge.spgp2024.dragonflight.game.MainScene;
 import kr.ac.tukorea.ge.spgp2024.framework.activity.GameActivity;
 import kr.ac.tukorea.ge.spgp2024.framework.interfaces.IBoxCollidable;
@@ -22,6 +23,8 @@ public class Scene {
 
     private static final String TAG = Scene.class.getSimpleName();
     private static ArrayList<Scene> stack = new ArrayList<>();
+
+    public static boolean drawsDebugInfo = false;
 
     public static Scene top() {
         int top = stack.size() - 1;
@@ -134,7 +137,7 @@ public class Scene {
                 gobj.draw(canvas);
             }
         }
-        if (BuildConfig.DEBUG) {
+        if (Scene.drawsDebugInfo) {
             if (bboxPaint == null) {
                 bboxPaint = new Paint();
                 bboxPaint.setStyle(Paint.Style.STROKE);
@@ -151,13 +154,25 @@ public class Scene {
         }
     }
 
+    protected int getTouchLayerIndex() {
+        return -1;
+    }
     public boolean onTouch(MotionEvent event) {
+        int touchLayer = getTouchLayerIndex();
+        if (touchLayer < 0) return false;
+        ArrayList<IGameObject> gameObjects = layers.get(touchLayer);
+        for (IGameObject gobj : gameObjects) {
+            if (!(gobj instanceof ITouchable)) {
+                continue;
+            }
+            boolean processed = ((ITouchable) gobj).onTouchEvent(event);
+            if (processed) return true;
+        }
         return false;
     }
 
     //////////////////////////////////////////////////
     // Overridables
-
 
     protected void onStart() {
     }

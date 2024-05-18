@@ -18,7 +18,7 @@ public class MainScene extends Scene {
     }
 
     public enum Layer {
-        bg, enemy, bullet, tower, ui, controller, COUNT
+        bg, enemy, bullet, tower, ui, controller, touch ,COUNT
     }
     public MainScene() {
         //Metrics.setGameSize(16, 16);
@@ -36,25 +36,66 @@ public class MainScene extends Scene {
 
         add(Layer.bg, new TileBackground(R.mipmap.medievalpack16x16));
 
-        //this.fighter = new Fighter();
-        //add(Layer.player, fighter);
+        add(Layer.touch, new Button(R.mipmap.button_0, 1.5f, 8.0f, 1.0f, 1.25f, new Button.Callback() {
+            @Override
+            public boolean onTouch(Button.Action action) {
+                //Log.d(TAG, "Button: Slide " + action);
+                //player.slide(action == Button.Action.pressed);
+                towercontroller.choose_Tower=0;
+                return true;
+            }
+        }));
+        add(Layer.touch, new Button(R.mipmap.button_1, 2.6f, 8.0f, 1.0f, 1.25f, new Button.Callback() {
+            @Override
+            public boolean onTouch(Button.Action action) {
+                //Log.d(TAG, "Button: Slide " + action);
+                //player.slide(action == Button.Action.pressed);
+                towercontroller.choose_Tower=0;
+                return true;
+            }
+        }));
+        add(Layer.touch, new Button(R.mipmap.button_2, 3.7f, 8.0f, 1.0f, 1.25f, new Button.Callback() {
+            @Override
+            public boolean onTouch(Button.Action action) {
+                //Log.d(TAG, "Button: Slide " + action);
+                //player.slide(action == Button.Action.pressed);
+                towercontroller.choose_Tower=0;
+                return true;
+            }
+        }));
+        add(Layer.touch, new Button(R.mipmap.button_3, 4.8f, 8.0f, 1.0f, 1.25f, new Button.Callback() {
+            @Override
+            public boolean onTouch(Button.Action action) {
+                //Log.d(TAG, "Button: Slide " + action);
+                //player.slide(action == Button.Action.pressed);
+                towercontroller.choose_Tower=0;
+                return true;
+            }
+        }));
 
         this.score = new Score(R.mipmap.number_24x32, Metrics.width - 0.5f, 0.5f, 0.6f);
         score.setScore(0);
         add(Layer.ui, score);
     }
 
-    public void addScore(int amount) {
-        score.add(amount);
-    }
+
 
     @Override
     public void update(float elapsedSeconds) {
         super.update(elapsedSeconds);
     }
 
+
     @Override
     public boolean onTouch(MotionEvent event) {
-        return towercontroller.onTouch(event);
+        towercontroller.onTouch(event);
+
+        return super.onTouch(event);
+    }
+
+    @Override
+    protected int getTouchLayerIndex() {
+
+        return Layer.touch.ordinal();
     }
 }

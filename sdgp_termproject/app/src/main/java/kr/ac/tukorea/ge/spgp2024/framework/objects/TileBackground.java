@@ -2,16 +2,20 @@ package kr.ac.tukorea.ge.spgp2024.framework.objects;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.RectF;
 
 import kr.ac.tukorea.ge.spgp2024.dragonflight.game.Enemy;
 import kr.ac.tukorea.ge.spgp2024.dragonflight.game.MainScene;
+import kr.ac.tukorea.ge.spgp2024.framework.interfaces.IBoxCollidable;
 import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
-public class TileBackground extends Sprite {
+public class TileBackground extends Sprite implements IBoxCollidable {
 
  // Change to width for horizontal scrolling
  private final Bitmap MapBitmap;
     private final Bitmap TileBitmap;
     private final Bitmap CatleBitmap;
+
+    protected RectF collisionRect = new RectF();
     public TileBackground(int bitmapResId) {
         super(bitmapResId);
         this.width = bitmap.getWidth() * Metrics.height / bitmap.getHeight();// Calculate width based on bitmap's aspect ratio
@@ -38,6 +42,8 @@ public class TileBackground extends Sprite {
     }
     @Override
     public void update(float elapsedSeconds) {
+        collisionRect.set(dstRect);
+        collisionRect.inset(-0.55f, -50.11f);
         //this.x += speed * elapsedSeconds; // Update x-coordinate for horizontal scrolling
     }
 
@@ -60,5 +66,10 @@ public class TileBackground extends Sprite {
         float y = Metrics.height/9;
         dstRect.set(x, y, x+this.width/8, y+Metrics.height/2);
         canvas.drawBitmap(CatleBitmap, null, dstRect, null);
+    }
+
+    @Override
+    public RectF getCollisionRect() {
+        return collisionRect;
     }
 }

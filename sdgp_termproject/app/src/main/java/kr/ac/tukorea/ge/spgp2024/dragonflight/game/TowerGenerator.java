@@ -22,7 +22,7 @@ public class TowerGenerator implements IGameObject {
     private float enemyTime = 0;
     private float[] pts;
     private boolean[][] tilecheck= new boolean[8][4];
-    private int choose_Tower = -1;
+    public int choose_Tower = -1;
     public TowerGenerator() {
         TBmp = BitmapPool.get(R.mipmap.medievalpack16x16);
 
@@ -67,31 +67,34 @@ public class TowerGenerator implements IGameObject {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_MOVE:
-                choose_Tower= 0;
-                pts = Metrics.fromScreen(event.getX(), event.getY());
+                //choose_Tower= 0;
+                //if(choose_Tower != -1)
+                    pts = Metrics.fromScreen(event.getX(), event.getY());
                 //setTargetX(pts[0]);
                 return true;
             case MotionEvent.ACTION_UP:
                 Scene scene = Scene.top();
                 if (scene == null) return true;
-                int cellX = Math.round(pts[0] - 16.f/3- 0.5f); // x축에서 가장 가까운 칸의 인덱스 계산
-                int cellY = Math.round(pts[1] - 3.f); // y축에서 가장 가까운 칸의 인덱스 계산
+                if(choose_Tower != -1) {
+                    int cellX = Math.round(pts[0] - 16.f / 3 - 0.5f); // x축에서 가장 가까운 칸의 인덱스 계산
+                    int cellY = Math.round(pts[1] - 3.f); // y축에서 가장 가까운 칸의 인덱스 계산
 
-                int numColumns = 8; // 가로 칸의 갯수
-                int numRows = 4; // 세로 칸의 갯수
+                    int numColumns = 8; // 가로 칸의 갯수
+                    int numRows = 4; // 세로 칸의 갯수
 
-                pts[0] = Math.max(6, Math.min(cellX + 6, 6 + numColumns - 1)); // x좌표를 (6, 6 + numColumns - 1) 범위 내로 조정
-                pts[1] = Math.max(3, Math.min(cellY + 3, 3 + numRows - 1));
+                    pts[0] = Math.max(6, Math.min(cellX + 6, 6 + numColumns - 1)); // x좌표를 (6, 6 + numColumns - 1) 범위 내로 조정
+                    pts[1] = Math.max(3, Math.min(cellY + 3, 3 + numRows - 1));
 
-                if (cellX >= 0 && cellX < numColumns && cellY >= 0 && cellY < numRows) {
-                    if (tilecheck[cellX][cellY]) {
-                        // 칸이 비어 있으면 오브젝트를 배치하고 tileCheck 값을 변경
-                        scene.add(MainScene.Layer.tower, Tower.get(pts, choose_Tower));
-                        tilecheck[cellX][cellY] = false;
+                    if (cellX >= 0 && cellX < numColumns && cellY >= 0 && cellY < numRows) {
+                        if (tilecheck[cellX][cellY]) {
+                            // 칸이 비어 있으면 오브젝트를 배치하고 tileCheck 값을 변경
+                            scene.add(MainScene.Layer.tower, Tower.get(pts, choose_Tower));
+                            tilecheck[cellX][cellY] = false;
+                        }
+
                     }
-
+                    choose_Tower = -1;
                 }
-                choose_Tower= -1;
                 return true;
         }
         return false;

@@ -2,6 +2,8 @@ package kr.ac.tukorea.ge.spgp2024.framework.objects;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 
@@ -45,16 +47,19 @@ public class Score implements IGameObject {
 
     @Override
     public void draw(Canvas canvas) {
-        int value = this.displayScore;
+        //int value = this.displayScore;
+        int value=10;
         float x = right;
-        while (value > 0) {
-            int digit = value % 10;
-            srcRect.set(digit * srcCharWidth, 0, (digit + 1) * srcCharWidth, srcCharHeight);
-            x -= dstCharWidth;
-            dstRect.set(x, top, x + dstCharWidth, top + dstCharHeight);
-            canvas.drawBitmap(bitmap, srcRect, dstRect, null);
-            value /= 10;
-        }
+        Paint paint = new Paint();
+        paint.setTextSize(1);  // 텍스트 크기 설정
+        paint.setColor(Color.RED);  // 텍스트 색상 설정
+        paint.setTextAlign(Paint.Align.RIGHT);  // 텍스트 정렬 설정
+
+        // 텍스트를 문자열로 변환
+        String text = String.valueOf(value);
+
+        // 텍스트 출력
+        canvas.drawText("hp | "+text, x, top + dstCharHeight, paint);
     }
 
     public void add(int amount) {
