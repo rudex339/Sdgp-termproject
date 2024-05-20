@@ -47,11 +47,11 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
 
     private void init(int level, int index) {
         this.level = level;
-        this.life = this.maxLife = (level + 1) * 100;
+        this.life = this.maxLife = (level + 1) * 40;
         this.stop = false;
         this.attack = false;
         this.effect_frame = 0;
-        this.damage = 10;
+        this.damage = 5;
         this.cooltime = 0.0f;
         this.attackOk = false;
         setAnimationResource(resIds[0], ANIM_FPS);

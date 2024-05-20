@@ -1,7 +1,5 @@
 package kr.ac.tukorea.ge.spgp2024.dragonflight.game;
 
-import static kr.ac.tukorea.ge.spgp2024.dragonflight.game.MainScene.Layer.enemy;
-
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -15,9 +13,8 @@ import kr.ac.tukorea.ge.spgp2024.framework.scene.RecycleBin;
 import kr.ac.tukorea.ge.spgp2024.framework.scene.Scene;
 import kr.ac.tukorea.ge.spgp2024.framework.util.Gauge;
 import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
-import kr.ac.tukorea.ge.spgp2024.dragonflight.game.Enemy;
 
-public class Tower extends AnimSprite implements IBoxCollidable, IRecyclable {
+public class Tower2 extends AnimSprite implements IBoxCollidable, IRecyclable {
     private static final float SPEED = 3.0f;
     private static final float RADIUS = 0.5f;
     private static final int[] resIds = {
@@ -44,7 +41,7 @@ public class Tower extends AnimSprite implements IBoxCollidable, IRecyclable {
     private float cooltime;
     protected static Gauge gauge = new Gauge(0.1f, R.color.enemy_gauge_fg, R.color.enemy_gauge_bg);
 
-    private Tower(float[] pos, int index) {
+    private Tower2(float[] pos, int index) {
         super(0, 1);
         init(pos, index);
     }
@@ -67,13 +64,13 @@ public class Tower extends AnimSprite implements IBoxCollidable, IRecyclable {
         setPosition(pos[0], pos[1], RADIUS);
     }
 
-    public static Tower get(float[] pos, int index) {
-        Tower tower = (Tower) RecycleBin.get(Tower.class);
+    public static Tower2 get(float[] pos, int index) {
+        Tower2 tower = (Tower2) RecycleBin.get(Tower.class);
         if (tower != null) {
             tower.init(pos, index);
             return tower;
         }
-        return new Tower(pos, index);
+        return new Tower2(pos, index);
     }
     @Override
     public void update(float elapsedSeconds) {
@@ -114,7 +111,7 @@ public class Tower extends AnimSprite implements IBoxCollidable, IRecyclable {
                     , null, attackRect, null);
 
         }
-       canvas.save();
+        canvas.save();
 
 
 
@@ -151,7 +148,7 @@ public class Tower extends AnimSprite implements IBoxCollidable, IRecyclable {
             //enemy.decreaseLife(10);
             return true;
         }
-            return false;
+        return false;
     }
     public boolean decreaseLife(int power) {
         life -= power;
