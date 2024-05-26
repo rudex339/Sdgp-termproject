@@ -8,6 +8,7 @@ import kr.ac.tukorea.ge.spgp2024.framework.interfaces.IRecyclable;
 import kr.ac.tukorea.ge.spgp2024.framework.objects.Sprite;
 import kr.ac.tukorea.ge.spgp2024.framework.scene.RecycleBin;
 import kr.ac.tukorea.ge.spgp2024.framework.scene.Scene;
+import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
 
 public class Bullet extends Sprite implements IBoxCollidable, IRecyclable {
     private static final float BULLET_WIDTH = 0.68f;
@@ -34,7 +35,7 @@ public class Bullet extends Sprite implements IBoxCollidable, IRecyclable {
     @Override
     public void update(float elapsedSeconds) {
         super.update(elapsedSeconds);
-        if (dstRect.bottom < 0) {
+        if (dstRect.bottom < 0||dstRect.top > Metrics.height||dstRect.right < 0||dstRect.left > Metrics.width) {
             Scene.top().remove(MainScene.Layer.bullet, this);
         }
     }

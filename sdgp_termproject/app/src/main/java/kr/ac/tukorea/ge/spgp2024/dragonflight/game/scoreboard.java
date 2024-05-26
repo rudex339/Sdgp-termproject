@@ -21,8 +21,8 @@ public class scoreboard implements IGameObject {
         if(success)allscore+=500;
 
         paint = new Paint();
-        paint.setTextSize(50);
-        paint.setColor(Color.BLACK);
+        paint.setTextSize(1);
+        paint.setColor(Color.RED);
         paint.setTextAlign(Paint.Align.CENTER);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
         paint.setLetterSpacing(0.1f);
@@ -34,11 +34,7 @@ public class scoreboard implements IGameObject {
 
     @Override
     public void draw(Canvas canvas) {
-        Paint paint = new Paint();
-        paint.setTextSize(1);
-        paint.setColor(Color.RED);
-        paint.setTextAlign(Paint.Align.CENTER);
-        paint.setLetterSpacing(0.1f);
+
 
         // 화면의 가운데 좌표 계산, h = ;
         float canvasWidth = Metrics.width;

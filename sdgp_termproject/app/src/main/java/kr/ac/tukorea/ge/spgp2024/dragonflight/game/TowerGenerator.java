@@ -2,8 +2,11 @@ package kr.ac.tukorea.ge.spgp2024.dragonflight.game;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.view.MotionEvent;
 
 import java.util.Random;
@@ -26,6 +29,7 @@ public class TowerGenerator implements IGameObject {
             new Rect(  1, 38,   1 + 21, 38+22)};
     private float[] pts;
     private boolean[][] tilecheck= new boolean[8][4];
+    private  Paint paint;
     public int choose_Tower = -1,cost=10,upcost=1;
     public TowerGenerator() {
         TBmp = BitmapPool.get(R.mipmap.medievalpack16x16);
@@ -35,6 +39,13 @@ public class TowerGenerator implements IGameObject {
                 tilecheck[i][j] = true; // 모든 요소를 false로 초기화
             }
         }
+
+        paint = new Paint();
+        paint.setTextSize(1);
+        paint.setColor(Color.WHITE);
+        paint.setTextAlign(Paint.Align.CENTER);
+        paint.setTypeface(Typeface.DEFAULT_BOLD);
+        paint.setLetterSpacing(0.1f);
     }
 
     @Override
@@ -42,6 +53,7 @@ public class TowerGenerator implements IGameObject {
         enemyTime -= elapsedSeconds;//특정시간때마다 generate를 호출하여 적을 생성
         if (enemyTime < 0) {
             cost += upcost;
+            if (cost >=99)cost = 99;
             enemyTime = GEN_INTERVAL;
         }
     }
@@ -64,6 +76,18 @@ public class TowerGenerator implements IGameObject {
                     pts[0] +  0.7f, pts[1] +  0.7f);
             canvas.drawBitmap(TBmp, srcRect[choose_Tower], dstRect, null);
         }
+
+        float canvasWidth = Metrics.width;
+        float canvasHeight = Metrics.height;
+
+        float y = canvasHeight-0.5f;
+        float x = Metrics.width-1.0f;
+        // 출력할 텍스트 설정
+        String Cost = String.valueOf(cost);
+
+
+        // 텍스트 출력
+        canvas.drawText(Cost, x, y, paint);
     }
 
     public boolean onTouch(MotionEvent event) {
@@ -79,6 +103,7 @@ public class TowerGenerator implements IGameObject {
                 Scene scene = Scene.top();
                 if (scene == null) return true;
                 if(choose_Tower != -1) {
+
                     int cellX = Math.round(pts[0] - 16.f / 3 - 0.5f); // x축에서 가장 가까운 칸의 인덱스 계산
                     int cellY = Math.round(pts[1] - 3.f); // y축에서 가장 가까운 칸의 인덱스 계산
 
@@ -91,8 +116,37 @@ public class TowerGenerator implements IGameObject {
                     if (cellX >= 0 && cellX < numColumns && cellY >= 0 && cellY < numRows) {
                         if (tilecheck[cellX][cellY]) {
                             // 칸이 비어 있으면 오브젝트를 배치하고 tileCheck 값을 변경
-                            scene.add(MainScene.Layer.tower, Tower.get(pts, choose_Tower));
-                            tilecheck[cellX][cellY] = false;
+                            switch (choose_Tower) {
+                                case 0:
+                                    if(cost >=10) {
+                                        cost -=10;
+                                        scene.add(MainScene.Layer.tower, Tower.get(pts, choose_Tower));
+                                        tilecheck[cellX][cellY] = false;
+                                    }
+                                    break;
+                                case 1:
+                                    if(cost >=16) {
+                                        cost -=10;
+                                        scene.add(MainScene.Layer.tower, Tower.get(pts, choose_Tower));
+                                        tilecheck[cellX][cellY] = false;
+                                    }
+                                    break;
+                                case 2:
+                                    if(cost >=13) {
+                                        cost -=10;
+                                        scene.add(MainScene.Layer.tower, Tower.get(pts, choose_Tower));
+                                        tilecheck[cellX][cellY] = false;
+                                    }
+                                    break;
+                                case 3:
+                                    if(cost >=20) {
+                                        cost -=10;
+                                        scene.add(MainScene.Layer.tower, Tower.get(pts, choose_Tower));
+                                        tilecheck[cellX][cellY] = false;
+                                    }
+                                    break;
+                            }
+
                         }
 
                     }

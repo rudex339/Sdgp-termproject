@@ -73,6 +73,19 @@ public class MainScene extends Scene {
             }
         }));
 
+        add(Layer.touch, new Button(R.mipmap.costup, 5.9f, 8.0f, 1.0f, 1.0f, new Button.Callback() {
+            @Override
+            public boolean onTouch(Button.Action action) {
+                //Log.d(TAG, "Button: Slide " + action);
+                //player.slide(action == Button.Action.pressed);
+                if(towercontroller.cost >=10 && towercontroller.upcost!=5) {
+                    towercontroller.cost -= 10;
+                    towercontroller.upcost += 1;
+                }
+                return true;
+            }
+        }));
+
         this.score = new Score(R.mipmap.number_24x32, Metrics.width - 0.5f, 0.5f, 0.6f);
         score.setHp(5);
         add(Layer.ui, score);

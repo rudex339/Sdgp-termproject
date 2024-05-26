@@ -10,7 +10,7 @@ import kr.ac.tukorea.ge.spgp2024.framework.scene.Scene;
 
 public class EnemyGenerator implements IGameObject {
     private static final String TAG = EnemyGenerator.class.getSimpleName();
-    public static final float GEN_INTERVAL = 3.0f;
+    public float GEN_INTERVAL = 3.0f;
     private final Random random = new Random();
     private float enemyTime = 0;
     private int wave=0, maw_wave=3,numEnemy=0, maxEnemy=10;
@@ -26,7 +26,9 @@ public class EnemyGenerator implements IGameObject {
                 wave++;
                 numEnemy=0;
                 maxEnemy +=10;
+                GEN_INTERVAL-=0.5f;
             }
+
             enemyTime =  random.nextFloat()*GEN_INTERVAL;
 
         }
