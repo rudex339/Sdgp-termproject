@@ -1,7 +1,5 @@
 package kr.ac.tukorea.ge.spgp2024.dragonflight.game;
 
-import static java.sql.Types.NULL;
-
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -10,17 +8,14 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import kr.ac.tukorea.ge.spgp2024.dragonflight.R;
-import kr.ac.tukorea.ge.spgp2024.framework.interfaces.IBoxCollidable;
 import kr.ac.tukorea.ge.spgp2024.framework.interfaces.IGameObject;
-import kr.ac.tukorea.ge.spgp2024.framework.interfaces.IRecyclable;
-import kr.ac.tukorea.ge.spgp2024.framework.objects.AnimSprite;
+import kr.ac.tukorea.ge.spgp2024.framework.objects.Sprite;
 import kr.ac.tukorea.ge.spgp2024.framework.res.BitmapPool;
 import kr.ac.tukorea.ge.spgp2024.framework.scene.RecycleBin;
 import kr.ac.tukorea.ge.spgp2024.framework.scene.Scene;
-import kr.ac.tukorea.ge.spgp2024.framework.util.Gauge;
 import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
 
-public class Tower2 extends Tower {
+public class Tower4 extends Tower {
     //private static final float SPEED = 3.0f;
     private static final float RADIUS = 0.5f;
     private static final int[] resIds = {
@@ -32,8 +27,8 @@ public class Tower2 extends Tower {
             R.mipmap.alternative_1_29,
             R.mipmap.alternative_1_30
     };
-    private Tower Target;
-    private Tower2(float[] pos, int index) {
+    private Enemy Target;
+    private Tower4(float[] pos, int index) {
         super(pos, index);
         init(pos, index);
     }
@@ -50,20 +45,20 @@ public class Tower2 extends Tower {
         this.damage = 10;
         //setAnimationResource(resIds[0], ANIM_FPS);
         if(srcRect == null)
-            srcRect=new Rect(   61, 38,   61 + 18, 38+22);
-        else srcRect.set( 61, 38,   61 + 18, 38+22);
+            srcRect=new Rect(   1, 38,   1 + 21, 38+22);
+        else srcRect.set( 1, 38,   1 + 21, 38+22);
 
 
         setPosition(pos[0], pos[1], RADIUS);
     }
 
-    public static Tower2 get(float[] pos, int index) {
-        Tower2 tower = (Tower2) RecycleBin.get(Tower.class);
+    public static Tower4 get(float[] pos, int index) {
+        Tower4 tower = (Tower4) RecycleBin.get(Tower.class);
         if (tower != null) {
             tower.init(pos, index);
             return tower;
         }
-        return new Tower2(pos, index);
+        return new Tower4(pos, index);
     }
     @Override
     public void update(float elapsedSeconds) {
@@ -139,9 +134,9 @@ public class Tower2 extends Tower {
         if(attackOk) {
             attackOk = false;
             if(Target!=null) {
-                Log.d("Tower", " Target life: " + Target.life);
-                Target.decreaseLife(-damage);
-                Log.d("Tower", "Target attacked. Damage (healing): " + -damage + ", Target life: " + Target.life);
+                //Log.d("Tower", " Target life: " + Target.life);
+                Target.decreaseLife(damage);
+                //Log.d("Tower", "Target attacked. Damage (healing): " + -damage + ", Target life: " + Target.life);
                 return true;
             }
         }
@@ -149,13 +144,20 @@ public class Tower2 extends Tower {
     }
     @Override
     public boolean fineTarget(ArrayList<IGameObject> enemies, ArrayList<IGameObject> towers){
-        Tower minLifeTower = (Tower)towers.get(0);
-        for (IGameObject tower : towers) {
-            if (((Tower)tower).life < minLifeTower.life) {
-                minLifeTower = (Tower)tower;
+        Sprite minenemy = (Sprite)enemies.get(0);
+        double minDistance = calculateDistance(x,y,minenemy.x,minenemy.y);
+        ;
+        for (IGameObject enemy : enemies) {
+            double distance = calculateDistance(x, y,  ((Sprite)enemy).x,  ((Sprite)enemy).y);
+            if(distance<minDistance) {
+                minDistance = distance;
+                minenemy = (Sprite) enemy;
             }
         }
-        Target = minLifeTower;
+        Target = (Enemy) minenemy;
         return true;
+    }
+    private double calculateDistance(float x1, float y1, float x2, float y2) {
+        return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
     }
 }

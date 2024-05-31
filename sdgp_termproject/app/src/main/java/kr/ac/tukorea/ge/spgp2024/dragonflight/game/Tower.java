@@ -6,8 +6,11 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.RectF;
 
+import java.util.ArrayList;
+
 import kr.ac.tukorea.ge.spgp2024.dragonflight.R;
 import kr.ac.tukorea.ge.spgp2024.framework.interfaces.IBoxCollidable;
+import kr.ac.tukorea.ge.spgp2024.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2024.framework.interfaces.IRecyclable;
 import kr.ac.tukorea.ge.spgp2024.framework.objects.AnimSprite;
 import kr.ac.tukorea.ge.spgp2024.framework.res.BitmapPool;
@@ -32,32 +35,32 @@ public class Tower extends AnimSprite implements IBoxCollidable, IRecyclable {
 
     public static final int MAX_LEVEL = resIds.length - 1;
     public static final float ANIM_FPS = 0.0f;
-    protected RectF collisionRect = new RectF();
-    protected RectF attackRect = new RectF();
-    protected  boolean attackOk;
-    private int level;
-    private int life, maxLife;
+    public RectF collisionRect = new RectF();
+    public RectF attackRect = new RectF();
+    public  boolean attackOk;
+    public int level;
+    public int life, maxLife;
     public int damage;
-    private float effect_frame;
+    public float effect_frame;
 
-    private boolean attack, enemy_stop;
-    private float cooltime;
-    protected static Gauge gauge = new Gauge(0.1f, R.color.enemy_gauge_fg, R.color.enemy_gauge_bg);
+    public boolean attack, enemy_stop;
+    public float cooltime;
+    public static Gauge gauge = new Gauge(0.1f, R.color.enemy_gauge_fg, R.color.enemy_gauge_bg);
 
-    private Tower(float[] pos, int index) {
+    public Tower(float[] pos, int index) {
         super(0, 1);
         init(pos, index);
     }
 
     private void init(float[] pos, int index) {
         this.level = 5;
-        this.life = this.maxLife = (level + 1) * 10;
+        this.life = this.maxLife = (level + 1) * 20;
         this.attack = false;
         this.enemy_stop = false;
         this.effect_frame = 0;
         this.cooltime = 0.0f;
         this.attackOk = false;
-        this.damage = 10;
+        this.damage = 20;
         setAnimationResource(resIds[0], ANIM_FPS);
         if(srcRect == null)
             srcRect=new Rect(  107, 44,   107 + 13, 44+16);
@@ -97,7 +100,7 @@ public class Tower extends AnimSprite implements IBoxCollidable, IRecyclable {
             if(cooltime<= 0.0f){
                 attackOk= true;
                 attack = true;
-                cooltime = 1.5f;
+                cooltime = 1.0f;
             }
             else{
                 cooltime -= elapsedSeconds;
@@ -145,6 +148,9 @@ public class Tower extends AnimSprite implements IBoxCollidable, IRecyclable {
         return (level + 1) * 100;
     }
 
+    public boolean fineTarget(ArrayList<IGameObject> enemies, ArrayList<IGameObject> towers){
+        return true;
+    }
     public boolean attack(Enemy enemy){
         if(attackOk) {
             attackOk = false;
@@ -153,8 +159,13 @@ public class Tower extends AnimSprite implements IBoxCollidable, IRecyclable {
         }
             return false;
     }
+    public boolean targetAttack(){
+
+        return false;
+    }
     public boolean decreaseLife(int power) {
         life -= power;
+        if(life >= maxLife) life= maxLife;
         return life <= 0;
     }
 }

@@ -118,30 +118,30 @@ public class TowerGenerator implements IGameObject {
                             // 칸이 비어 있으면 오브젝트를 배치하고 tileCheck 값을 변경
                             switch (choose_Tower) {
                                 case 0:
-                                    if(cost >=10) {
-                                        cost -=10;
+                                    if(cost >=5) {
+                                        cost -=5;
                                         scene.add(MainScene.Layer.tower, Tower.get(pts, choose_Tower));
                                         tilecheck[cellX][cellY] = false;
                                     }
                                     break;
                                 case 1:
-                                    if(cost >=16) {
-                                        cost -=10;
-                                        scene.add(MainScene.Layer.tower, Tower.get(pts, choose_Tower));
+                                    if(cost >=7) {
+                                        cost -=7;
+                                        scene.add(MainScene.Layer.tower, Tower3.get(pts, choose_Tower));
                                         tilecheck[cellX][cellY] = false;
                                     }
                                     break;
                                 case 2:
-                                    if(cost >=13) {
+                                    if(cost >=10) {
                                         cost -=10;
-                                        scene.add(MainScene.Layer.tower, Tower.get(pts, choose_Tower));
+                                        scene.add(MainScene.Layer.tower, Tower2.get(pts, choose_Tower));
                                         tilecheck[cellX][cellY] = false;
                                     }
                                     break;
                                 case 3:
-                                    if(cost >=20) {
-                                        cost -=10;
-                                        scene.add(MainScene.Layer.tower, Tower.get(pts, choose_Tower));
+                                    if(cost >=15) {
+                                        cost -=15;
+                                        scene.add(MainScene.Layer.tower, Tower4.get(pts, choose_Tower));
                                         tilecheck[cellX][cellY] = false;
                                     }
                                     break;

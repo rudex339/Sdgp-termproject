@@ -31,7 +31,10 @@ public class Bullet extends Sprite implements IBoxCollidable, IRecyclable {
         }
         return new Bullet(x, y, power);
     }
-
+    public void setvelocity(float x, float y){
+        dx = x;
+        dy = y;
+    }
     @Override
     public void update(float elapsedSeconds) {
         super.update(elapsedSeconds);
