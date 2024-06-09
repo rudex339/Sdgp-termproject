@@ -27,13 +27,14 @@ public class CollisionChecker implements IGameObject {
             if(CollisionHelper.collides(enemy, castle)){
                 scene.score.numEnemy++;
                 scene.remove(MainScene.Layer.enemy, enemy);
-                //scene.addScore(-1);
+                scene.addScore(-1);
                 if(scene.getScore() <=0){
                     new Failscene(scene.score).push();
                 }
             }
             else {
                 ArrayList<IGameObject> towers = scene.objectsAt(MainScene.Layer.tower);
+                enemy.fineTarget(enemies, towers);
                 for (int b = towers.size() - 1; b >= 0; b--) {
                     Tower tower = (Tower) towers.get(b);
                     tower.fineTarget(enemies, towers);

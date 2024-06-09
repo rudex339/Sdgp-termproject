@@ -13,7 +13,7 @@ public class EnemyGenerator implements IGameObject {
     public float GEN_INTERVAL = 3.0f;
     private final Random random = new Random();
     private float enemyTime = 0;
-    private int wave=0, maw_wave=3,numEnemy=0, maxEnemy=10;
+    private int wave=1, maw_wave=3,numEnemy=0, maxEnemy=10;
     //10 20 30
     @Override
     public void update(float elapsedSeconds) {
@@ -40,9 +40,23 @@ public class EnemyGenerator implements IGameObject {
 
         //wave++;
         //Log.v(TAG, "Generating: wave " + wave);
-        for (int i = 0; i < random.nextInt(2); i++) {
+        for (int i = 0; i < random.nextInt(2+wave-1); i++) {
             numEnemy++;
-            scene.add(MainScene.Layer.enemy, Enemy.get(0, random.nextInt(4)));
+            switch(random.nextInt(4)%wave){
+                case 0:
+                    scene.add(MainScene.Layer.enemy, Enemy.get(0, random.nextInt(4)));
+                    break;
+                case 1:
+                    scene.add(MainScene.Layer.enemy, Enemy2.get(0, random.nextInt(4)));
+                    break;
+                case 2:
+                    scene.add(MainScene.Layer.enemy, Enemy3.get(0, random.nextInt(4)));
+                    break;
+                case 3:
+                    scene.add(MainScene.Layer.enemy, Enemy.get(0, random.nextInt(4)));
+                    break;
+            }
+
         }
     }
 

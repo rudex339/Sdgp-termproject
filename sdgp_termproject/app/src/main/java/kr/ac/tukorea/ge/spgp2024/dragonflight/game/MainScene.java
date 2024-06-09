@@ -3,8 +3,10 @@ package kr.ac.tukorea.ge.spgp2024.dragonflight.game;
 import android.view.MotionEvent;
 
 import kr.ac.tukorea.ge.spgp2024.dragonflight.R;
+import kr.ac.tukorea.ge.spgp2024.framework.objects.Sprite;
 import kr.ac.tukorea.ge.spgp2024.framework.objects.TileBackground;
 import kr.ac.tukorea.ge.spgp2024.framework.objects.Score;
+import kr.ac.tukorea.ge.spgp2024.framework.scene.Failscene;
 import kr.ac.tukorea.ge.spgp2024.framework.scene.Scene;
 import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
 
@@ -18,10 +20,13 @@ public class MainScene extends Scene {
     }
 
     public enum Layer {
-        bg, enemy, bullet, tower, ui, controller, touch ,COUNT
+       bbg, bg, enemy, bullet, tower, ui, controller, touch ,COUNT
     }
     public MainScene() {
         //Metrics.setGameSize(16, 16);
+        float w = Metrics.width, h = Metrics.height;
+        float cx = w / 2, cy = h / 2;
+
         initLayers(Layer.COUNT);
 
         add(Layer.controller, new EnemyGenerator());
@@ -33,7 +38,7 @@ public class MainScene extends Scene {
 
         //add(Layer.bg, new VertScrollBackground(R.mipmap.bg_city, 0.2f));
         //add(Layer.bg, new VertScrollBackground(R.mipmap.clouds, 0.4f));
-
+        add(Layer.bbg, new Sprite(R.mipmap.trans_50b, cx, cy, w, h));
         add(Layer.bg, new TileBackground(R.mipmap.medievalpack16x16));
 
         add(Layer.touch, new Button(R.mipmap.button_0, 1.5f, 8.0f, 1.0f, 1.25f, new Button.Callback() {
@@ -78,9 +83,9 @@ public class MainScene extends Scene {
             public boolean onTouch(Button.Action action) {
                 //Log.d(TAG, "Button: Slide " + action);
                 //player.slide(action == Button.Action.pressed);
-                if(towercontroller.cost >=10 && towercontroller.upcost!=5) {
-                    towercontroller.cost -= 10;
-                    towercontroller.upcost += 1;
+                if(towercontroller.cost >=6 && towercontroller.upcost!=6) {
+                    towercontroller.cost -= 6;
+                    towercontroller.upcost += 2;
                 }
                 return true;
             }

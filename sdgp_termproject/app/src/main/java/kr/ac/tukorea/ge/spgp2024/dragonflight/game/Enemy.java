@@ -4,8 +4,11 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.RectF;
 
+import java.util.ArrayList;
+
 import kr.ac.tukorea.ge.spgp2024.dragonflight.R;
 import kr.ac.tukorea.ge.spgp2024.framework.interfaces.IBoxCollidable;
+import kr.ac.tukorea.ge.spgp2024.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2024.framework.interfaces.IRecyclable;
 import kr.ac.tukorea.ge.spgp2024.framework.objects.AnimSprite;
 import kr.ac.tukorea.ge.spgp2024.framework.res.BitmapPool;
@@ -39,7 +42,7 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
     private float cooltime;
     protected static Gauge gauge = new Gauge(0.1f, R.color.enemy_gauge_fg, R.color.enemy_gauge_bg);
 
-    private Enemy(int level, int index) {
+    public Enemy(int level, int index) {
         super(0, 0);
         init(level, index);
         dx = -SPEED;
@@ -56,8 +59,8 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
         this.attackOk = false;
         setAnimationResource(resIds[0], ANIM_FPS);
         if(srcRect == null)
-            srcRect=new Rect(  221, 121,   221 + 16, 121+19);
-        else srcRect.set(221, 121,   221 + 16, 121+19);
+            srcRect=new Rect(  140, 44,   140 + 13, 44+16);
+        else srcRect.set(140, 44,   140 + 13, 44+16);
 
         setPosition(16.f/3 + 1.f * 7, 3.f+1.f*(index), 0.5f);
         //setPosition(16.f/3 + 1.f * 7, 3.f+1.f*(index), 1.f);
@@ -152,4 +155,11 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
         return life <= 0;
     }
 
+    public boolean fineTarget(ArrayList<IGameObject> enemies, ArrayList<IGameObject> towers){
+        return true;
+    }
+    public boolean targetAttack(){
+
+        return false;
+    }
 }
