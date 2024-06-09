@@ -41,7 +41,7 @@ public class Tower2 extends Tower {
     private void init(float[] pos, int index) {
 
         this.level = 5;
-        this.life = this.maxLife = (level + 1) * 5;
+        this.life = this.maxLife = (level + 1) * 6;
         this.attack = false;
         this.enemy_stop = false;
         this.effect_frame = 0;

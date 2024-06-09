@@ -6,6 +6,7 @@ import kr.ac.tukorea.ge.spgp2024.dragonflight.R;
 import kr.ac.tukorea.ge.spgp2024.framework.objects.Sprite;
 import kr.ac.tukorea.ge.spgp2024.framework.objects.TileBackground;
 import kr.ac.tukorea.ge.spgp2024.framework.objects.Score;
+import kr.ac.tukorea.ge.spgp2024.framework.res.Sound;
 import kr.ac.tukorea.ge.spgp2024.framework.scene.Failscene;
 import kr.ac.tukorea.ge.spgp2024.framework.scene.Scene;
 import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
@@ -99,7 +100,10 @@ public class MainScene extends Scene {
     public void addScore(int amount) {
         score.add(amount);
     }
-
+    @Override
+    protected void onStart() {
+        Sound.playMusic(R.raw.main);
+    }
     @Override
     public void update(float elapsedSeconds) {
 

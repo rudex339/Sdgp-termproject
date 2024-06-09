@@ -54,7 +54,7 @@ public class Tower extends AnimSprite implements IBoxCollidable, IRecyclable {
 
     private void init(float[] pos, int index) {
         this.level = 5;
-        this.life = this.maxLife = (level + 1) * 30;
+        this.life = this.maxLife = (level + 1) * 32;
         this.attack = false;
         this.enemy_stop = false;
         this.effect_frame = 0;

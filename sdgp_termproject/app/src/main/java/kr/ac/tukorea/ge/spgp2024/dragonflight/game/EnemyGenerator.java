@@ -13,24 +13,27 @@ public class EnemyGenerator implements IGameObject {
     public float GEN_INTERVAL = 3.0f;
     private final Random random = new Random();
     private float enemyTime = 0;
-    private int wave=1, maw_wave=3,numEnemy=0, maxEnemy=10;
+    private int wave=1, maw_wave=3,numEnemy=0, maxEnemy=10, fullmaxEnemy = 100;
     //10 20 30
     @Override
     public void update(float elapsedSeconds) {
-        enemyTime -= elapsedSeconds;//특정시간때마다 generate를 호출하여 적을 생성
-        if (enemyTime < 0) {
-            if(numEnemy<=maxEnemy) {
-                generate();
-            }
-            else{
-                wave++;
-                numEnemy=0;
-                maxEnemy +=10;
-                GEN_INTERVAL-=0.5f;
-            }
+        if(wave <5) {
+            enemyTime -= elapsedSeconds;//특정시간때마다 generate를 호출하여 적을 생성
+            if (enemyTime < 0) {
+                if (numEnemy <= maxEnemy) {
+                    generate();
+                    enemyTime = random.nextFloat() * GEN_INTERVAL;
+                } else {
+                    wave++;
+                    //numEnemy = 0;
+                    maxEnemy += (10+maxEnemy);
+                    GEN_INTERVAL -= 0.5f;
+                    enemyTime = 7.f;
+                }
 
-            enemyTime =  random.nextFloat()*GEN_INTERVAL;
 
+
+            }
         }
     }
 
@@ -53,7 +56,7 @@ public class EnemyGenerator implements IGameObject {
                     scene.add(MainScene.Layer.enemy, Enemy3.get(0, random.nextInt(4)));
                     break;
                 case 3:
-                    scene.add(MainScene.Layer.enemy, Enemy.get(0, random.nextInt(4)));
+                    scene.add(MainScene.Layer.enemy, Enemy4.get(0, random.nextInt(4)));
                     break;
             }
 

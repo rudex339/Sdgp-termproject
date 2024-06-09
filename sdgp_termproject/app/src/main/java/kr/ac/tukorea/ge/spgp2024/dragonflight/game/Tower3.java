@@ -26,13 +26,13 @@ public class Tower3 extends Tower{
     }
     private void init(float[] pos, int index) {
         this.level = 5;
-        this.life = this.maxLife = (level + 1) * 20-40;
+        this.life = this.maxLife = (level + 1) * 23-40;
         this.attack = false;
         this.enemy_stop = false;
         this.effect_frame = 0;
         this.cooltime = 0.0f;
         this.attackOk = false;
-        this.damage = 60;
+        this.damage = 50;
         setAnimationResource(resIds[0], ANIM_FPS);
         if(this.srcRect == null)
             this.srcRect=new Rect(  83, 43,   83 + 17, 43+17);

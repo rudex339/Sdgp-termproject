@@ -36,13 +36,13 @@ public class Tower4 extends Tower {
     private void init(float[] pos, int index) {
 
         this.level = 5;
-        this.life = this.maxLife = (level + 1) * 5-10;
+        this.life = this.maxLife = (level + 1) * 8-10;
         this.attack = false;
         this.enemy_stop = false;
         this.effect_frame = 0;
         this.cooltime = 0.0f;
         this.attackOk = false;
-        this.damage = 10;
+        this.damage = 20;
         //setAnimationResource(resIds[0], ANIM_FPS);
         if(srcRect == null)
             srcRect=new Rect(   1, 38,   1 + 21, 38+22);

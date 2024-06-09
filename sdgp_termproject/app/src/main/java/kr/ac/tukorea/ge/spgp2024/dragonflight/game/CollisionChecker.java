@@ -55,7 +55,7 @@ public class CollisionChecker implements IGameObject {
                             scene.score.kill++;
                             scene.score.numEnemy++;
                             scene.remove(MainScene.Layer.enemy, enemy);
-                            if( scene.score.numEnemy>=50){
+                            if( scene.score.numEnemy>=100){
                                 scene.score.clear =true;
                                 new Failscene(scene.score).push();
                             }
