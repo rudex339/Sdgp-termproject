@@ -57,8 +57,4 @@ public class Sprite implements IGameObject {
     public void draw(Canvas canvas) {
         canvas.drawBitmap(bitmap, srcRect, dstRect, null);
     }
-
-    public void moveTo(float x, float y) {
-        setPosition(x, y, width, height);
-    }
 }

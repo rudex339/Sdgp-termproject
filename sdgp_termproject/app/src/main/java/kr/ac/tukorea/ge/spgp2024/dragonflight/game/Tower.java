@@ -97,7 +97,7 @@ public class Tower extends AnimSprite implements IBoxCollidable, IRecyclable {
             if(cooltime<= 0.0f){
                 attackOk= true;
                 attack = true;
-                cooltime = 1.5f;
+                cooltime = 3.f;
             }
             else{
                 cooltime -= elapsedSeconds;

@@ -14,7 +14,7 @@ public class MainScene extends Scene {
     Score score; // package private
 
     public int getScore() {
-        return score.getHp();
+        return score.getScore();
     }
 
     public enum Layer {
@@ -50,7 +50,7 @@ public class MainScene extends Scene {
             public boolean onTouch(Button.Action action) {
                 //Log.d(TAG, "Button: Slide " + action);
                 //player.slide(action == Button.Action.pressed);
-                towercontroller.choose_Tower=1;
+                towercontroller.choose_Tower=0;
                 return true;
             }
         }));
@@ -59,7 +59,7 @@ public class MainScene extends Scene {
             public boolean onTouch(Button.Action action) {
                 //Log.d(TAG, "Button: Slide " + action);
                 //player.slide(action == Button.Action.pressed);
-                towercontroller.choose_Tower=2;
+                towercontroller.choose_Tower=0;
                 return true;
             }
         }));
@@ -68,23 +68,20 @@ public class MainScene extends Scene {
             public boolean onTouch(Button.Action action) {
                 //Log.d(TAG, "Button: Slide " + action);
                 //player.slide(action == Button.Action.pressed);
-                towercontroller.choose_Tower=3;
+                towercontroller.choose_Tower=0;
                 return true;
             }
         }));
 
         this.score = new Score(R.mipmap.number_24x32, Metrics.width - 0.5f, 0.5f, 0.6f);
-        score.setHp(5);
+        score.setScore(0);
         add(Layer.ui, score);
     }
 
-    public void addScore(int amount) {
-        score.add(amount);
-    }
+
 
     @Override
     public void update(float elapsedSeconds) {
-
         super.update(elapsedSeconds);
     }
 
