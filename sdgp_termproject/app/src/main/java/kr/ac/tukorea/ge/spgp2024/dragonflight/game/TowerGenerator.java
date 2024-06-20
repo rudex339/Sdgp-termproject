@@ -16,13 +16,17 @@ import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
 
 public class TowerGenerator implements IGameObject {
     private static final String TAG = TowerGenerator.class.getSimpleName();
-    public static final float GEN_INTERVAL = 5.0f;
+    public static final float GEN_INTERVAL = 1.0f;
     private final Random random = new Random();
     private final Bitmap TBmp;
     private float enemyTime = 0;
+    private Rect[] srcRect= {new Rect(  107, 44,   107 + 13, 44+16),
+            new Rect(  83, 43,   83 + 17, 43+17),
+            new Rect(  61, 38,   61 + 18, 38+22),
+            new Rect(  1, 38,   1 + 21, 38+22)};
     private float[] pts;
     private boolean[][] tilecheck= new boolean[8][4];
-    public int choose_Tower = -1;
+    public int choose_Tower = -1,cost=10,upcost=1;
     public TowerGenerator() {
         TBmp = BitmapPool.get(R.mipmap.medievalpack16x16);
 
@@ -37,14 +41,13 @@ public class TowerGenerator implements IGameObject {
     public void update(float elapsedSeconds) {
         enemyTime -= elapsedSeconds;//특정시간때마다 generate를 호출하여 적을 생성
         if (enemyTime < 0) {
-            generate();
+            cost += upcost;
             enemyTime = GEN_INTERVAL;
         }
     }
 
     private void generate() {
-        Scene scene = Scene.top();
-        if (scene == null) return;
+
 
         //Log.v(TAG, "Generating: wave " + wave);
         //for (int i = 0; i < 5; i++) {
@@ -55,11 +58,11 @@ public class TowerGenerator implements IGameObject {
     @Override
     public void draw(Canvas canvas) {
         if(choose_Tower != -1){
-            Rect srcRect=new Rect(  107, 44,   107 + 13, 44+16);
+            //Rect srcRect=new Rect(  107, 44,   107 + 13, 44+16);
             RectF dstRect = new RectF();
             dstRect.set(pts[0] -  0.7f, pts[1] -  0.7f,
                     pts[0] +  0.7f, pts[1] +  0.7f);
-            canvas.drawBitmap(TBmp, srcRect, dstRect, null);
+            canvas.drawBitmap(TBmp, srcRect[choose_Tower], dstRect, null);
         }
     }
 

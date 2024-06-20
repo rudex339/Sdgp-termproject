@@ -16,8 +16,8 @@ public class Score implements IGameObject {
     private final Rect srcRect = new Rect();
     private final RectF dstRect = new RectF();
     private final int srcCharWidth, srcCharHeight;
-    private int score, displayScore;
-
+    public int hp, displayScore, kill=0,numEnemy=0;
+    public boolean clear=false;
     public Score(int mipmapId, float right, float top, float width) {
         this.bitmap = BitmapPool.get(mipmapId);
         this.right = right;
@@ -28,13 +28,13 @@ public class Score implements IGameObject {
         this.dstCharHeight = dstCharWidth * srcCharHeight / srcCharWidth;
     }
 
-    public void setScore(int score) {
-        this.score = this.displayScore = score;
+    public void setHp(int score) {
+        this.hp = this.displayScore = score;
     }
 
     @Override
     public void update(float elapsedSeconds) {
-        int diff = score - displayScore;
+        int diff = hp - displayScore;
         if (diff == 0) return;
         if (-10 < diff && diff < 0) {
             displayScore--;
@@ -48,25 +48,33 @@ public class Score implements IGameObject {
     @Override
     public void draw(Canvas canvas) {
         //int value = this.displayScore;
-        int value=10;
-        float x = right;
+        int value= hp;
+        float x = right-4.5f;
         Paint paint = new Paint();
         paint.setTextSize(1);  // 텍스트 크기 설정
         paint.setColor(Color.RED);  // 텍스트 색상 설정
-        paint.setTextAlign(Paint.Align.RIGHT);  // 텍스트 정렬 설정
-
+        paint.setTextAlign(Paint.Align.LEFT);  // 텍스트 정렬 설정
         // 텍스트를 문자열로 변환
         String text = String.valueOf(value);
-
+        text = "hp "+text;
         // 텍스트 출력
-        canvas.drawText("hp | "+text, x, top + dstCharHeight, paint);
+        float spacing = 1.0f;  // 문자 사이 간격
+
+        // 각 문자 개별 출력
+        for (int i = 0; i < text.length(); i++) {
+            char c = text.charAt(i);
+            // 개별 문자의 폭을 측정
+            float charWidth = paint.measureText(String.valueOf(c));
+            canvas.drawText(String.valueOf(c), x, top + (dstCharHeight/2), paint);
+            x += spacing;  // 문자 너비에 간격을 추가하여 x 좌표 이동
+        }
     }
 
     public void add(int amount) {
-        score += amount;
+        hp += amount;
     }
 
-    public int getScore() {
-        return score;
+    public int getHp() {
+        return hp;
     }
 }

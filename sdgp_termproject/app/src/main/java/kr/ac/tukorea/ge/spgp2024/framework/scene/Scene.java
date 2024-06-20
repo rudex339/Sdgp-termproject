@@ -153,7 +153,9 @@ public class Scene {
             }
         }
     }
-
+    public boolean isTransparent() {
+        return false;
+    }
     protected int getTouchLayerIndex() {
         return -1;
     }
